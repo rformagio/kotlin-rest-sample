@@ -4,14 +4,11 @@ import br.com.rformagio.data.PaymentType
 import org.springframework.stereotype.Component
 
 @Component
-class Processor {
+class Processor(allProcessors: List<PaymentProcessor>) {
 
-    var processor: Map<PaymentType, PaymentProcessor>
-
-    constructor(allProcessors: List<PaymentProcessor>) {
-        processor = allProcessors.associateBy( { it.getType() }, {it})
-    }
+    var processor: Map<PaymentType, PaymentProcessor> =
+            allProcessors.associateBy( { it.getType() }, {it})
 
     fun getPaymentProcessorByType(paymentType: PaymentType) =
-            processor.get(paymentType)
+            processor[paymentType]
 }
