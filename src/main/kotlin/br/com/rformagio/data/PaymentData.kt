@@ -13,6 +13,6 @@ import java.util.*
         JsonSubTypes.Type (value = BoletoData::class, name = "BOLETO"),
         JsonSubTypes.Type (value = CreditCardData::class, name = "CREDIT_CARD")
 )
-open class PaymentData (open val type: PaymentType) {
+abstract class PaymentData (val type: PaymentType) {
     lateinit var paymentId: UUID
 }
