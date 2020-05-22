@@ -14,7 +14,7 @@ class PaymentController {
 
     @GetMapping("/{paymentId}")
     fun getPayment(@PathVariable(value = "paymentId") paymentId: String) =
-            "PaymentID: $paymentId" + "UUID: " + UUID.randomUUID()
+            "PaymentID: $paymentId ," + "UUID: " + UUID.randomUUID()
 
 
     @PostMapping
@@ -23,7 +23,7 @@ class PaymentController {
         val p = payment;
         when (p) {
             is BoletoData -> return p.boletoNumber
-            is CreditCardData -> return p.creditCardNumber
+            is CreditCardData -> return p.creditCardNumber + " : " + p.cvv +  " : " + p.holderName
         }
         return ""
     }
