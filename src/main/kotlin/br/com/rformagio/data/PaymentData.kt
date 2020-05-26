@@ -14,5 +14,5 @@ import java.util.*
         JsonSubTypes.Type (value = CreditCardData::class, name = "CREDIT_CARD")
 )
 open class PaymentData (val type: PaymentType) {
-    lateinit var paymentId: UUID
+    var paymentId: UUID? = null
 }

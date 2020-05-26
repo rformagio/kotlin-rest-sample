@@ -1,8 +1,9 @@
 package br.com.rformagio.controller
 
-import br.com.rformagio.data.BoletoData
-import br.com.rformagio.data.CreditCardData
 import br.com.rformagio.data.PaymentData
+import br.com.rformagio.domain.Payment
+import br.com.rformagio.service.PaymentService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -10,24 +11,19 @@ import java.util.*
 @RequestMapping("/payments")
 class PaymentController {
 
+    @Autowired
+    lateinit var paymentService: PaymentService
+
+    @GetMapping("/")
+    fun getAllPayments() = paymentService.findAll()
 
     @GetMapping("/{paymentId}")
-    fun getPayment(@PathVariable(value = "paymentId") paymentId: String) =
-            "PaymentID: $paymentId ," + "UUID: " + UUID.randomUUID()
-
+    fun getPayment(@PathVariable(value = "paymentId") paymentId: UUID):Payment {
+        return paymentService.findPaymentById(paymentId).get()
+    }
 
     @PostMapping
-    fun createPayment(@RequestBody payment: PaymentData): String {
-
-        when (payment) {
-            is BoletoData -> return payment.barCode +
-                    " : " + payment.type +
-                    " : " + payment.paymentId
-            is CreditCardData -> return payment.creditCardNumber +
-                    " : " + payment.cvv +
-                    " : " + payment.holderName +
-                    " : " + payment.type
-        }
-        return ""
+    fun createPayment(@RequestBody paymentData: PaymentData): UUID? {
+         return paymentService.createPayment(paymentData)
     }
 }

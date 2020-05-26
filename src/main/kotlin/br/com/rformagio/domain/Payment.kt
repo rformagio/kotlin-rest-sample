@@ -1,15 +1,17 @@
 package br.com.rformagio.domain
 
+import br.com.rformagio.data.PaymentData
 import br.com.rformagio.data.PaymentType
 import java.util.*
 import javax.persistence.*
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-open class Payment {
+abstract class Payment(var type: PaymentType) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    lateinit var paymentId: UUID
+    var paymentId: UUID? = null
 
-    lateinit var type: PaymentType
+    abstract fun toData(): PaymentData
+
 }

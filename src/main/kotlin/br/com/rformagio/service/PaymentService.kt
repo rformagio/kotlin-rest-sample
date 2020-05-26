@@ -6,17 +6,26 @@ import br.com.rformagio.processor.Processor
 import br.com.rformagio.repository.PaymentRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
-class PaymentService(@Autowired val processor: Processor,
-                     @Autowired val paymentRepository: PaymentRepository) {
+class PaymentService(@Autowired private val processor: Processor,
+                     @Autowired private val paymentRepository: PaymentRepository) {
 
 
 
-    fun process(paymentData: PaymentData){
+    fun createPayment(paymentData: PaymentData): UUID? {
 
         var paymentProcessor: PaymentProcessor? = processor.getPaymentProcessorByType(paymentData.type)
-        paymentProcessor?.process(paymentData)
-       // paymentRepository.save()
+        var payment = paymentProcessor?.process(paymentData)
+        if (payment != null) {
+           return paymentRepository.save(payment).paymentId
+        }
+        return null
     }
+
+    fun findPaymentById(paymentId:UUID) =
+            paymentRepository.findById(paymentId)
+
+    fun findAll() = paymentRepository.findAll()
 }

@@ -6,4 +6,5 @@ import java.util.*
 
 
 interface PaymentRepository: JpaRepository<Payment, UUID> {
+    fun save(payment: Payment): Payment
 }
