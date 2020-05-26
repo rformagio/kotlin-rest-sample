@@ -20,7 +20,7 @@ class PaymentController {
     fun createPayment(@RequestBody payment: PaymentData): String {
 
         when (payment) {
-            is BoletoData -> return payment.boletoNumber +
+            is BoletoData -> return payment.barCode +
                     " : " + payment.type +
                     " : " + payment.paymentId
             is CreditCardData -> return payment.creditCardNumber +

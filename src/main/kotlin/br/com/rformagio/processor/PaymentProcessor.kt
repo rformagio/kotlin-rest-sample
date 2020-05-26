@@ -7,4 +7,5 @@ interface PaymentProcessor {
 
     fun process(paymentData: PaymentData)
     fun getType() : PaymentType
+    fun convertDataToEntity(paymentData: PaymentData)
 }
