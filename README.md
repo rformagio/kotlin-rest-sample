@@ -1,9 +1,25 @@
+./gradlew bootRun
+
+GET - getPayment
+
+http://localhost:8080/payments/{paymentId}
+
+- ``paymentId`` is a UUID
+
+GET - getPayments
+
+http://localhost:8080/payments/
+
 POST - createPayment
+
+http://localhost:8080/payments/
+
+body:
 - BOLETO
 ```
-{"paymentId": "fd8e5e02-9811-45ab-91e7-95b07ca57dd0", "type": "BOLETO", "boletoNumber": "123456789"}
+{"paymentId": "", "type": "BOLETO", "barCode": "123456789"}
 ```
 - CREDIT CARD
 ```
-{"paymentId": "fd8e5e02-9811-45ab-91e7-95b07ca57dd0", "type": "CREDIT_CARD", "creditCardNumber": "123456789", "cvv": "123", "holderName": "Teste"}
+{"paymentId": "", "type": "CREDIT_CARD", "creditCardNumber": "123456789", "cvv": "123", "holderName": "Teste"}
 ```

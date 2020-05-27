@@ -18,8 +18,8 @@ class PaymentController {
     fun getAllPayments() = paymentService.findAll()
 
     @GetMapping("/{paymentId}")
-    fun getPayment(@PathVariable(value = "paymentId") paymentId: UUID):Payment {
-        return paymentService.findPaymentById(paymentId).get()
+    fun getPayment(@PathVariable(value = "paymentId") paymentId: UUID): PaymentData {
+        return paymentService.findPaymentById(paymentId)
     }
 
     @PostMapping

@@ -11,7 +11,11 @@ import javax.persistence.PrimaryKeyJoinColumn
 @PrimaryKeyJoinColumn(name = "boletoId", referencedColumnName = "paymentId")
 data class Boleto(var barCode: String): Payment(PaymentType.BOLETO) {
 
-    override fun toData(): PaymentData = BoletoData(barCode)
+    override fun toData(): PaymentData {
+        val boletoData = BoletoData(barCode)
+        boletoData.paymentId = super.paymentId
+        return boletoData
+    }
 
 
 

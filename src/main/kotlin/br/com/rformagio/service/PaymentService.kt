@@ -25,7 +25,9 @@ class PaymentService(@Autowired private val processor: Processor,
     }
 
     fun findPaymentById(paymentId:UUID) =
-            paymentRepository.findById(paymentId)
+            paymentRepository.findById(paymentId).get().toData()
 
-    fun findAll() = paymentRepository.findAll()
+    fun findAll() = paymentRepository
+            .findAll()
+            .map { it.toData() }
 }
